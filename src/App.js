@@ -1,23 +1,29 @@
-import logo from './logo.svg';
 import './App.css';
+import {useState} from 'react';
+import MoleContainer from './components/MoleContainer';
 
 function App() {
+let [score, setScore] = useState(0);
+
+function addToScore(addedPoint) {
+  setScore(score + addedPoint);
+}
+
+function createMoleHills (count) {
+  const moles = [];
+  for (let i = 0; i < count; i++) {
+    moles.push(<MoleContainer key={i} addToScore={addToScore}/>)
+  }
+  return moles;
+}
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>React-A-Mole</h1>
+      <h2>Score {score}</h2>
+      <div className="mole-mounds">
+        {createMoleHills(9)}
+      </div>
     </div>
   );
 }
